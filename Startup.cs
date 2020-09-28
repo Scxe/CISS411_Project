@@ -1,3 +1,11 @@
+/*
+Nicholas Henson, Asa Thompson, Luke Parker, Shaun Hembree
+CISS 411
+Software Architecture and Testing
+Course Project
+9/28/2020
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
