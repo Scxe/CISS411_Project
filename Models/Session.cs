@@ -17,5 +17,6 @@ namespace CISS411_Project.Models
         public Swimmer Swimmer { get; set; }
         public string CoachName { get; set; }
         public Coach Coach { get; set; }
+        public string ProgressReport { get; set; }
     }
 }
