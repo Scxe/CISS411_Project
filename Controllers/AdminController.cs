@@ -49,8 +49,8 @@ namespace CISS411_Project.Controllers
                         ModelState.AddModelError("", error.Description);
                     }
                 }
-
             }
+            return View(vm);
         }
     }
 }
