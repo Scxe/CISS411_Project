@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CISS411_Project.Controllers
 {
-    public class AdminController : Controller
+    public class AccountController : Controller
     {
         private SwimDbContext db;
         private UserManager<RegisteredUser> userManager;
         private SignInManager<RegisteredUser> signInManager;
         private RoleManager<IdentityRole> roleManager;
-        public AdminController(UserManager<RegisteredUser> userManager,
+        public AccountController(UserManager<RegisteredUser> userManager,
             SignInManager<RegisteredUser> signInManager,
             RoleManager<IdentityRole> roleManager, SwimDbContext db)
         {
