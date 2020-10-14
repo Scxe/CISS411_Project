@@ -82,5 +82,11 @@ namespace CISS411_Project.Controllers
             }
             return View(vm);
         }
+        // Display all users
+        public IActionResult AllUser()
+        {
+            var users = db.Users.ToList();
+            return View(users);
+        }
     }
 }
