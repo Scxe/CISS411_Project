@@ -25,6 +25,7 @@ namespace CISS411_Project.Controllers
             this.roleManager = roleManager;
             this.db = db;
         }
+        // Registration
         public IActionResult Register()
         {
             return View();
@@ -49,6 +50,35 @@ namespace CISS411_Project.Controllers
                         ModelState.AddModelError("", error.Description);
                     }
                 }
+            }
+            return View(vm);
+        }
+        // Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(AccountLoginViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(vm.Email, vm.Password, false, false);
+                if (result.Succeeded)
+                {
+                    var user = await userManager.FindByEmailAsync(vm.Email);
+                    var roles = await userManager.GetRolesAsync(user);
+                    if (roles.Contains("Instructor"))
+                    {
+                        return RedirectToAction("Index", "Instructor");
+                    }
+                    else if (roles.Contains("Student"))
+                    {
+                        return RedirectToAction("Index", "Student");
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Login Failure.");
             }
             return View(vm);
         }
