@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CISS411_Project.ViewModels
 {
-    public class AdminRegisterViewModel
+    public class AccountRegisterViewModel
     {
-        [Required,  MaxLength(256), EmailAddress]
+        [Required, MaxLength(256), EmailAddress]
         [Display(Name = "Email Address")]
-        public String Email { get; set; }
+        public string Email { get; set; }
         [Required, MinLength(6), MaxLength(20)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -18,8 +18,7 @@ namespace CISS411_Project.ViewModels
         [Required, MinLength(6), MaxLength(20)]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
-
     }
 }
