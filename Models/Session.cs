@@ -7,6 +7,7 @@ namespace CISS411_Project.Models
 {
     public class Session
     {
+        public int SessionId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int SeatsAvailable { get; set; }
@@ -15,7 +16,7 @@ namespace CISS411_Project.Models
         public Lesson Lesson { get; set; }
         public int SwimmerId { get; set; }
         public Swimmer Swimmer { get; set; }
-        public string CoachName { get; set; }
+        public int CoachId { get; set; }
         public Coach Coach { get; set; }
         public string ProgressReport { get; set; }
     }
