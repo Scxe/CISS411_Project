@@ -14,8 +14,6 @@ namespace CISS411_Project.Models
         public string StartTime { get; set; }
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
-        public int SwimmerId { get; set; }
-        public Swimmer Swimmer { get; set; }
         public int CoachId { get; set; }
         public Coach Coach { get; set; }
         public string ProgressReport { get; set; }
