@@ -12,6 +12,6 @@ namespace CISS411_Project.Models
         public string PhoneNumber { get; set; }
         public char Gender { get; set; }
         public string DateOfBirth { get; set; }
-        public ICollection<Session> Sessions { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

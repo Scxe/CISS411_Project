@@ -4,14 +4,16 @@ using CISS411_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CISS411_Project.Migrations
 {
     [DbContext(typeof(SwimDbContext))]
-    partial class SwimDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201015011608_M2")]
+    partial class M2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,11 +175,16 @@ namespace CISS411_Project.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SwimmerId")
+                        .HasColumnType("int");
+
                     b.HasKey("SessionId");
 
                     b.HasIndex("CoachId");
 
                     b.HasIndex("LessonId");
+
+                    b.HasIndex("SwimmerId");
 
                     b.ToTable("Sessions");
                 });
@@ -341,13 +348,13 @@ namespace CISS411_Project.Migrations
             modelBuilder.Entity("CISS411_Project.Models.Enrollment", b =>
                 {
                     b.HasOne("CISS411_Project.Models.Session", "Session")
-                        .WithMany("Enrollments")
+                        .WithMany()
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CISS411_Project.Models.Swimmer", "Swimmer")
-                        .WithMany("Enrollments")
+                        .WithMany()
                         .HasForeignKey("SwimmerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -364,6 +371,12 @@ namespace CISS411_Project.Migrations
                     b.HasOne("CISS411_Project.Models.Lesson", "Lesson")
                         .WithMany("Sessions")
                         .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CISS411_Project.Models.Swimmer", "Swimmer")
+                        .WithMany("Sessions")
+                        .HasForeignKey("SwimmerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
