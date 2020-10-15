@@ -7,6 +7,7 @@ namespace CISS411_Project.Models
 {
     public class Coach
     {
+        public int CoachId { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public ICollection<Session> Sessions { get; set; }
