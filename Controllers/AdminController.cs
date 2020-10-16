@@ -1,56 +1,48 @@
-﻿using System;
+﻿// AT 10-15-20
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CISS411_Project.Models;
 using CISS411_Project.ViewModels;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CISS411_Project.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private SwimDbContext db;
-        private UserManager<RegisteredUser> userManager;
-        private SignInManager<RegisteredUser> signInManager;
-        private RoleManager<IdentityRole> roleManager;
-        public AdminController(UserManager<RegisteredUser> userManager,
-            SignInManager<RegisteredUser> signInManager,
-            RoleManager<IdentityRole> roleManager, SwimDbContext db)
+        private readonly SwimDbContext db;
+        public AdminController(SwimDbContext db)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.roleManager = roleManager;
             this.db = db;
         }
-        public IActionResult Register()
+        public IActionResult Index()
         {
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(AccountRegisterViewModel vm)
+        // Add Lessons
+        public IActionResult AddLesson()
         {
-            if (ModelState.IsValid)
-            {
-                var user = new RegisteredUser { UserName = vm.Email, Email = vm.Email };
-                var result = await userManager.CreateAsync(user, vm.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-            }
-            return View(vm);
+            Lesson lesson = new Lesson();
+            return View(lesson);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddLesson(Lesson lesson)
+        {
+            db.Add(lesson);
+            await db.SaveChangesAsync();
+            return RedirectToAction("AllLesson", "Admin");
+        }
+        // View Lessons
+        public IActionResult AllLesson()
+        {
+            var lesson = db.Lessons.ToList();
+            return View(lesson);
         }
     }
 }
