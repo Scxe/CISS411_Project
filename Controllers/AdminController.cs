@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CISS411_Project.Controllers
@@ -28,21 +29,19 @@ namespace CISS411_Project.Controllers
         // Add Lessons
         public IActionResult AddLesson()
         {
-            Lesson lesson = new Lesson();
-            return View(lesson);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> AddLesson(Lesson lesson)
         {
             db.Add(lesson);
             await db.SaveChangesAsync();
-            return RedirectToAction("AllLesson", "Admin");
+            return RedirectToAction("AllLesson");
         }
         // View Lessons
         public IActionResult AllLesson()
         {
-            var lesson = db.Lessons.ToList();
-            return View(lesson);
+            return View(db.Lessons);
         }
     }
 }
