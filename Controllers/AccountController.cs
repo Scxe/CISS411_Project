@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CISS411_Project.Models;
 using CISS411_Project.ViewModels;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,13 +69,17 @@ namespace CISS411_Project.Controllers
                 {
                     var user = await userManager.FindByEmailAsync(vm.Email);
                     var roles = await userManager.GetRolesAsync(user);
-                    if (roles.Contains("Instructor"))
+                    if (roles.Contains("Admin"))
                     {
-                        return RedirectToAction("Index", "Instructor");
+                        return RedirectToAction("Index", "Admin");
                     }
-                    else if (roles.Contains("Student"))
+                    else if (roles.Contains("Coach"))
                     {
-                        return RedirectToAction("Index", "Student");
+                        return RedirectToAction("Index", "Coach");
+                    }
+                    else if (roles.Contains("Swimmer"))
+                    {
+                        return RedirectToAction("Index", "Swimmer");
                     }
                     return RedirectToAction("Index", "Home");
                 }
@@ -83,6 +88,7 @@ namespace CISS411_Project.Controllers
             return View(vm);
         }
         // Display all users
+        [Authorize(Roles="Admin")] // Admin-only area to simplify design. AT 10-15-20
         public IActionResult AllUser()
         {
             var users = db.Users.ToList();

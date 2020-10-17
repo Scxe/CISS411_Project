@@ -1,0 +1,28 @@
+﻿@*AT 10-15-20*@
+@model IEnumerable<CISS411_Project.Models.Lesson>
+
+@{ 
+    if (Model.Count() < 1)
+    {
+        <p>No lesson in database yet.</p>
+    }
+    else
+    {
+        <h3>All Lessons</h3>
+        <table border="1">
+            <tr>
+                <th>Lesson ID</th>
+                <th>Skill Level</th>
+                <th>Tuition Cost</th>
+            </tr>
+            @foreach (var lesson in Model)
+            {
+                <tr>
+                    <td>@lesson.LessonId</td>
+                    <td>@lesson.SkillLevel</td>
+                    <td>@lesson.Tuition</td>
+                </tr>
+            }
+        </table>
+    }
+}
