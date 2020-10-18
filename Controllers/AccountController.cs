@@ -91,7 +91,7 @@ namespace CISS411_Project.Controllers
             return View(vm);
         }
         // Display all users
-       [Authorize(Roles="Admin")] // Admin-only area to simplify design. AT 10-15-20
+        [Authorize(Roles="Admin")] // Admin-only area to simplify design. AT 10-15-20
         public IActionResult AllUser()
         {
             var users = db.Users.ToList();
