@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CISS411_Project.Models.Session>
+<h2>@Model.FirstOrDefault().Coach.Name</h2>
+@{ 
+    if (Model.Count() < 1)
+    {
+        <p>You don't have any sessions yet. <a asp-for="AddSession">Add a Session</a></p>
+    }
+    else
+    {
+        <h3>All Sessions</h3>
+        <table border="1">
+            <tr>
+                <th>Session ID</th>
+                <th>Lesson Name</th>
+                <th>Seat Capacity</th>
+                <th>Post Report</th>
+            </tr>
+            @foreach (var session in Model)
+            {
+                <tr>
+                    <td>@session.SessionId</td>
+                    <td>@session.Lesson.SkillLevel</td>
+                    <td>@session.SeatsAvailable</td>
+                    <td>
+                        <a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
+<p><a asp-controller="Coach" asp-action="Index">Return to Coach Home</a></p>

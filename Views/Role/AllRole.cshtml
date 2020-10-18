@@ -1,6 +1,7 @@
 ﻿@* AT 10-14-20 *@
 @model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
 <p><a asp-action="AddRole">Add a role</a></p>
+<p><a asp-controller="Admin" asp-action="Index">Return to Home</a></p>
 @{
     if (Model.Count() < 1)
     {
