@@ -61,10 +61,21 @@ namespace CISS411_Project.Controllers
             return View(db.Lessons);
         }
         // Add a Session
-        public IActionResult AddSession()
+        public IActionResult AddSession(int id)
         {
-            //Session session = new Session();
-            return View();
+            Session session = new Session();
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            session.CoachId = db.Coaches.SingleOrDefault(i => i.UserId == currentUserId).CoachId;
+            session.LessonId = id;
+            return View(session);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSession(Session session)
+        {
+            db.Add(session);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index", "Coach");
         }
     }
 }
