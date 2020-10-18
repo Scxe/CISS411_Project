@@ -66,7 +66,7 @@ namespace CISS411_Project.Controllers
             Session session = new Session();
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             session.CoachId = db.Coaches.SingleOrDefault(i => i.UserId == currentUserId).CoachId;
-            session.LessonId = id;
+            session.LessonId = db.Lessons.SingleOrDefault(i => i.LessonId == id).LessonId;
             return View(session);
         }
 

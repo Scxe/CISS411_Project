@@ -16,6 +16,6 @@ namespace CISS411_Project.Models
         public int CoachId { get; set; }
         public Lesson Lesson { get; set; }
         public Coach Coach { get; set; }
-        public string ProgressReport { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model CISS411_Project.Models.Session
+<h2>Add Your Session</h2>
 <form asp-controller="Coach" asp-action="AddSession" method="post">
-    <input asp-for="SessionId" type="hidden" />
+    <input asp-for="CoachId" type="hidden" />
     <label asp-for="StartDate"></label>
     <input asp-for="StartDate" />
     <label asp-for="EndDate"></label>
