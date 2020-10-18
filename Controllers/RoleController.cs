@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CISS411_Project.Controllers
 {
-   [Authorize(Roles = "Admin")] // Need to comment this out to set up new Admin
+    [Authorize(Roles = "Admin")] // Need to comment this out to set up new Admin
     public class RoleController : Controller
     {
         SwimDbContext db;
