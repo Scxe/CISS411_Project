@@ -1,0 +1,14 @@
+﻿@*AT 10-17-20*@
+@model CISS411_Project.Models.Coach
+<h2>Add Your Profile</h2>
+<form asp-action="AddProfile">
+    <input asp-for="@Model.UserId" type="hidden" />
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <br />
+    <label asp-for="PhoneNumber"></label>
+    <input asp-for="PhoneNumber" />
+    <br />
+    <button type="submit">Add Profile</button>
+</form>
+<p><a asp-action="Index">Back to Coach Home</a></p>

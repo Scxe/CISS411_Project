@@ -41,7 +41,7 @@ namespace CISS411_Project.Controllers
         // View Lessons
         public IActionResult AllLesson()
         {
-            return View(db.Lessons);
+            return View(db.Lessons); // AT 10-17-20
         }
     }
 }
