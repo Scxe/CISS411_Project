@@ -78,14 +78,14 @@ namespace CISS411_Project.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Coach");
         }
-        //public async Task<IActionResult> SessionByCoach()
-        //{
-        //    var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    var CoachId = db.Coaches.SingleOrDefault
-        //        (i => i.UserId == currentUserId).CoachId;
-        //    var session = await db.Sessions.Where(i => i.CoachId == CoachId).ToListAsync();
-        //    return View(session);
-        //}
+        public async Task<IActionResult> SessionByCoach()
+        {
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var CoachId = db.Coaches.SingleOrDefault
+                (i => i.UserId == currentUserId).CoachId;
+            var session = await db.Sessions.Where(i => i.CoachId == CoachId).ToListAsync();
+            return View(session);
+        }
         public async Task<IActionResult> PostReport(int? id)
         {
             if(id==null)

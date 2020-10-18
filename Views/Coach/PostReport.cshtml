@@ -1,6 +1,6 @@
 ﻿@model List<CISS411_Project.Models.Enrollment>
 <h2>Enter Student Progress Reports</h2>
-<h3>Session: @Model[0].Session.Lesson.SkillLevel</h3>
+<h3>Session: @Model[0].Session.SessionId</h3>
 <form asp-controller="Coach" asp-action="PostReport" method="post">
     <table border="1">
         <tr>
@@ -14,7 +14,11 @@
                 <td><input asp-for="@Model[i].EnrollmentId" type="hidden" value="@Model[i].EnrollmentId" />
                 </td>
                 <td>@Model[i].SwimmerId</td>
-                <td><input asp-for="@Model[i].ProgressReport" /></td>
+                <td><select asp-for="@Model[i].ProgressReport">
+                    <option value="E">E</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select></td>
             </tr>
         }
     </table>
