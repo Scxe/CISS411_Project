@@ -1,6 +1,6 @@
 ﻿@model List<CISS411_Project.Models.Enrollment>
 <h2>Enter Student Progress Reports</h2>
-<h3>Session: @Model[0].Session.Lesson.SkillLevel</h3>
+<h3>Session: @Model[0].Session.SessionId</h3>
 <form asp-controller="Coach" asp-action="PostReport" method="post">
     <table border="1">
         <tr>
