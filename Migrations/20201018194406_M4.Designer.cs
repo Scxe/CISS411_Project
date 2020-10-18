@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CISS411_Project.Migrations
 {
     [DbContext(typeof(SwimDbContext))]
-    [Migration("20201017191540_M3")]
-    partial class M3
+    [Migration("20201018194406_M4")]
+    partial class M4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,12 @@ namespace CISS411_Project.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("CoachId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Coaches");
                 });
@@ -209,7 +214,15 @@ namespace CISS411_Project.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SeatsAvailable")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("SwimmerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Swimmers");
                 });
@@ -345,6 +358,13 @@ namespace CISS411_Project.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CISS411_Project.Models.Coach", b =>
+                {
+                    b.HasOne("CISS411_Project.Models.RegisteredUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("CISS411_Project.Models.Enrollment", b =>
                 {
                     b.HasOne("CISS411_Project.Models.Session", "Session")
@@ -377,6 +397,13 @@ namespace CISS411_Project.Migrations
                     b.HasOne("CISS411_Project.Models.Swimmer", null)
                         .WithMany("Sessions")
                         .HasForeignKey("SwimmerId");
+                });
+
+            modelBuilder.Entity("CISS411_Project.Models.Swimmer", b =>
+                {
+                    b.HasOne("CISS411_Project.Models.RegisteredUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

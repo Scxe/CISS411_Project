@@ -7,7 +7,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CISS411_Project.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CISS411_Project.Controllers
 {
@@ -54,6 +56,28 @@ namespace CISS411_Project.Controllers
             {
                 db.Add(swimmer);
             }
+            await db.SaveChangesAsync();
+            return View("Index");
+        }
+        //AllCourse method
+        public async Task<IActionResult> AllSession()
+        {
+            var session = await db.Sessions.Include(c => c.Coach).ToListAsync();
+            return View(session);
+        }
+        //Enroll Session Action
+        public async Task<IActionResult> EnrollSession(int id)
+        {
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var swimmerId = db.Swimmers.FirstOrDefault(s => s.UserId == currentUserId).SwimmerId;
+            Enrollment enrollment = new Enrollment
+            {
+                SessionId = id,
+                SwimmerId = swimmerId
+            };
+            db.Add(enrollment);
+            var session = await db.Swimmers.FindAsync(enrollment.SessionId);
+            session.SeatsAvailable--;
             await db.SaveChangesAsync();
             return View("Index");
         }
