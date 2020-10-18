@@ -81,7 +81,10 @@ namespace CISS411_Project.Controllers
                     {
                         return RedirectToAction("Index", "Swimmer");
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 ModelState.AddModelError("", "Login Failure.");
             }
