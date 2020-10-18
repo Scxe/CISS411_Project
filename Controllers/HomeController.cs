@@ -12,5 +12,9 @@ namespace CISS411_Project.Controllers
         {
             return View();
         }
+        public IActionResult Registered() // AT 10-18-20
+        {
+            return View();
+        }
     }
 }
