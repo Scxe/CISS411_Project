@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CISS411_Project.Migrations
 {
     [DbContext(typeof(SwimDbContext))]
-    [Migration("20201018191318_M5")]
-    partial class M5
+    [Migration("20201018194249_M3")]
+    partial class M3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
