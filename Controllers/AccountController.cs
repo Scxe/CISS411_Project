@@ -81,14 +81,17 @@ namespace CISS411_Project.Controllers
                     {
                         return RedirectToAction("Index", "Swimmer");
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 ModelState.AddModelError("", "Login Failure.");
             }
             return View(vm);
         }
         // Display all users
-        [Authorize(Roles="Admin")] // Admin-only area to simplify design. AT 10-15-20
+       [Authorize(Roles="Admin")] // Admin-only area to simplify design. AT 10-15-20
         public IActionResult AllUser()
         {
             var users = db.Users.ToList();

@@ -20,7 +20,7 @@
                 <tr>
                     <td>@lesson.LessonId</td>
                     <td>@lesson.SkillLevel</td>
-                    <td><a asp-action="AddSession">Add a Session</a></td>
+                    <td><a asp-action="AddSession" asp-route-id="@lesson.LessonId">Add a session</a></td>
                 </tr>
             }
         </table>

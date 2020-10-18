@@ -13,9 +13,9 @@ namespace CISS411_Project.Models
         public int SeatsAvailable { get; set; }
         public string StartTime { get; set; }
         public int LessonId { get; set; }
-        public Lesson Lesson { get; set; }
         public int CoachId { get; set; }
+        public Lesson Lesson { get; set; }
         public Coach Coach { get; set; }
-        public string ProgressReport { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }
