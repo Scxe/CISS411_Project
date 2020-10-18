@@ -76,10 +76,11 @@ namespace CISS411_Project.Controllers
                 SwimmerId = swimmerId
             };
             db.Add(enrollment);
-            var session = await db.Swimmers.FindAsync(enrollment.SessionId);
+            var session = await db.Sessions.FindAsync(enrollment.SessionId);
             session.SeatsAvailable--;
             await db.SaveChangesAsync();
             return View("Index");
         }
+       
     }
 }
