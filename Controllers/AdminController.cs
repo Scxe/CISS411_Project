@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CISS411_Project.Controllers
 {
-    [Authorize(Roles = "Admin")]
+     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly SwimDbContext db;
