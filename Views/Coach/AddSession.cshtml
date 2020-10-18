@@ -2,6 +2,7 @@
 <h2>Add Your Session</h2>
 <form asp-controller="Coach" asp-action="AddSession" method="post">
     <input asp-for="CoachId" type="hidden" />
+    <input asp-for="LessonId" type="hidden" />
     <label asp-for="StartDate"></label>
     <input asp-for="StartDate" />
     <label asp-for="EndDate"></label>

@@ -223,7 +223,6 @@ namespace CISS411_Project.Migrations
                     StartTime = table.Column<string>(nullable: true),
                     LessonId = table.Column<int>(nullable: false),
                     CoachId = table.Column<int>(nullable: false),
-                    ProgressReport = table.Column<string>(nullable: true),
                     SwimmerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

@@ -20,29 +20,25 @@
             </tr>
             @foreach (var session in Model)
             {
-        <tr>
-            <td>@session.SessionId</td>
-            <td>@session.StartDate</td>
-            <td>@session.EndDate</td>
-            <td>@session.SeatsAvailable</td>
-            <td>@session.StartTime</td>
-            <td>
+             <tr>
+                  <td>@session.SessionId</td>
+                  <td>@session.StartDate</td>
+                  <td>@session.EndDate</td>
+                  <td>@session.SeatsAvailable</td>
+                  <td>@session.StartTime</td>
+                  <td>
                 @{ 
-                    if (session.SeatsAvailable < 1)
-                    {
-                        <p> Full session</p>
-                    }
-                    else
-                    {
-                        <a asp-controller="Swimmer"
-                           asp-action="EnrollSession"
-                           asp-route-id="@session.SessionId">
-
-                        Register</a>
-                    }
-                }
-            </td>
-        </tr>
+                        if (session.SeatsAvailable < 1)
+                          {
+                           <p>Full session</p>
+                          }
+                        else
+                          {
+                              <a asp-controller="Swimmer" asp-action="EnrollSession" asp-route-id="@session.SessionId">Register</a>
+                          }
+                       }
+                   </td>
+             </tr>
             }
         </table>
     }

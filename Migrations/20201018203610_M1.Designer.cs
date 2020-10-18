@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CISS411_Project.Migrations
 {
     [DbContext(typeof(SwimDbContext))]
-    [Migration("20201018192525_M6")]
-    partial class M6
+    [Migration("20201018203610_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,9 @@ namespace CISS411_Project.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeatsAvailable")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
