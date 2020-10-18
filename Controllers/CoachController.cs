@@ -55,6 +55,16 @@ namespace CISS411_Project.Controllers
             await db.SaveChangesAsync();
             return View("Index");
         }
-        //
+        // All Lessons (for coach)
+        public IActionResult AllLesson()
+        {
+            return View(db.Lessons);
+        }
+        // Add a Session
+        public IActionResult AddSession()
+        {
+            //Session session = new Session();
+            return View();
+        }
     }
 }
