@@ -1,0 +1,50 @@
+﻿@* SH 10/18 *@
+@model IEnumerable<CISS411_Project.Models.Session>
+
+@{
+    if (Model.Count() < 1)
+    {
+        <p>No session in database yet.</p>
+    }
+    else
+    {
+        <h3>All Sessions</h3>
+        <table border="1">
+            <tr>
+                <th>Session ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Seat Capacity</th>
+                <th>Daily Start Time</th>
+                <th>Enroll Session</th>
+            </tr>
+            @foreach (var session in Model)
+            {
+        <tr>
+            <td>@session.SessionId</td>
+            <td>@session.StartDate</td>
+            <td>@session.EndDate</td>
+            <td>@session.SeatsAvailable</td>
+            <td>@session.StartTime</td>
+            <td>
+                @{ 
+                    if (session.SeatsAvailable < 1)
+                    {
+                        <p> Full session</p>
+                    }
+                    else
+                    {
+                        <a asp-controller="Swimmer"
+                           asp-action="EnrollSession"
+                           asp-route-id="@session.SessionId">
+
+                        Register</a>
+                    }
+                }
+            </td>
+        </tr>
+            }
+        </table>
+    }
+}
+<p><a asp-action="Index">Back to swimmer home</a></p>
