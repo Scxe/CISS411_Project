@@ -42,7 +42,7 @@ namespace CISS411_Project.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Registered", "Home");
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace CISS411_Project.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
