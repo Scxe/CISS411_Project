@@ -11,6 +11,7 @@
         <table border="1">
             <tr>
                 <th>Session ID</th>
+                <th>Skill Level</th>
                 <th>Seat Capacity</th>
                 <th>Post Report</th>
             </tr>
@@ -18,7 +19,7 @@
             {
                 <tr>
                     <td>@session.SessionId</td>
-                    
+                    <td>@session.Lesson.SkillLevel</td>
                     <td>@session.SeatsAvailable</td>
                     <td>
                         <a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a>
