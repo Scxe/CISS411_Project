@@ -81,9 +81,8 @@ namespace CISS411_Project.Controllers
         public async Task<IActionResult> SessionByCoach()
         {
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var CoachId = db.Coaches.SingleOrDefault
-                (i => i.UserId == currentUserId).CoachId;
-            var session = await db.Sessions.Where(i => i.CoachId == CoachId).ToListAsync();
+            var CoachId = db.Coaches.SingleOrDefault(i => i.UserId == currentUserId).CoachId;
+            var session = await db.Sessions.Include(s => s.Lesson).Where(s => s.CoachId == CoachId).ToListAsync();
             return View(session);
         }
         public async Task<IActionResult> PostReport(int? id)
@@ -92,7 +91,7 @@ namespace CISS411_Project.Controllers
             {
                 return NotFound();
             }
-            var allSwimmers = await db.Enrollments.Include(c => c.Session).Where(c => c.SessionId == id).ToListAsync();
+            var allSwimmers = await db.Enrollments.Include(e => e.Session).Include(e => e.Swimmer).Include(e => e.Session.Lesson).Where(e => e.SessionId == id).ToListAsync();
             if (allSwimmers == null)
             {
                 return NotFound();
