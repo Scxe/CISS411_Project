@@ -1,4 +1,4 @@
-﻿@* SH 10-18 *@
+﻿@* SH 10-18, AT 10-21-20 added Phone, Gender, DOB *@
 @model CISS411_Project.Models.Swimmer
     <div>
         <h2>Add Your Profile</h2>
@@ -8,6 +8,21 @@
                 <tr>
                     <th>Name: </th>
                     <td><input asp-for="Name" /></td>
+                </tr>
+                <tr>
+                    <th>Phone Number: </th>
+                    <td><input asp-for="PhoneNumber" /></td>
+                </tr>
+                <tr>
+                    <th>Gender: </th>
+                    <td><select asp-for="Gender">
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Date of Birth: </th>
+                    <td><input asp-for="DateOfBirth" /></td>
                 </tr>
             </table>
             <button type="submit">Add Profile</button>
