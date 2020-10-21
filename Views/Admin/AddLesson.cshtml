@@ -1,11 +1,19 @@
 ﻿@*AT 10-15-20*@
 @model CISS411_Project.Models.Lesson
-<form asp-controller="Admin" asp-action="AddLesson" method="post">
-    <label asp-for="SkillLevel"></label>
-    <input asp-for="SkillLevel" />
+<div>
+    <form asp-controller="Admin" asp-action="AddLesson" method="post">
+        <table class="table">
+            <tr>
+                <th>Skill Level: </th>
+                <td><input asp-for="SkillLevel" /></td>
+            </tr>
+            <tr>
+                <th>Tuition: </th>
+                <td><input asp-for="Tuition" /></td>
+            </tr>
+        </table>
+        <button type="submit">Add Lesson</button>
+    </form>
     <br />
-    <label asp-for="Tuition"></label>
-    <input asp-for="Tuition" />
-    <br />
-    <button type="submit">Add Lesson</button>
-</form>
+    <p><a asp-controller="Admin" asp-action="Index">Back to Admin Home</a></p>
+</div>

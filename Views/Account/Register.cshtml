@@ -1,19 +1,33 @@
 ﻿@model CISS411_Project.ViewModels.AccountRegisterViewModel
-<h2>User Registration</h2>
-<form asp-action="Register"
-      method="post">
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+<div>
+    <h2>User Registration</h2>
+    <form asp-action="Register"
+          method="post">
+        <table class="table">
+            <tr>
+                <th>Email: </th>
+                <td>
+                    <input asp-for="Email" /><br />
+                    <span asp-validation-for="Email"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>Password: </th>
+                <td>
+                    <input asp-for="Password" /><br />
+                    <span asp-validation-for="Password"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>Confirm Password: </th>
+                <td>
+                    <input asp-for="ConfirmPassword" /><br />
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Register</button>
+    </form>
     <br />
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
-    <br />
-    <label asp-for="ConfirmPassword"></label>
-    <input asp-for="ConfirmPassword" />
-    <span asp-validation-for="ConfirmPassword"></span>
-
-    <br />
-    <button type="submit">Register</button>
-</form>
+    <p><a asp-controller="Home" asp-action="Index">Back to Home</a></p>
+</div>

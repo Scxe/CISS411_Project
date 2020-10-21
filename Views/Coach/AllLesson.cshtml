@@ -1,28 +1,31 @@
 ﻿@*AT 10-17-20*@
 @model IEnumerable<CISS411_Project.Models.Lesson>
-
-@{
-    if (Model.Count() < 1)
-    {
-        <p>No lesson in database yet.</p>
-    }
-    else
-    {
-        <h3>All Lessons</h3>
-        <table border="1">
-            <tr>
-                <th>Lesson ID</th>
-                <th>Skill Level</th>
-                <th>Add a Session</th>
-            </tr>
-            @foreach (var lesson in Model)
+    <div>
+        @{
+            if (Model.Count() < 1)
             {
-                <tr>
-                    <td>@lesson.LessonId</td>
-                    <td>@lesson.SkillLevel</td>
-                    <td><a asp-action="AddSession" asp-route-id="@lesson.LessonId">Add a session</a></td>
-                </tr>
+                <p>No lesson in database yet.</p>
             }
-        </table>
-    }
-}
+            else
+            {
+                <h3>All Lessons</h3>
+                <table class="table">
+                    <tr>
+                        <th scope="col">Lesson ID</th>
+                        <th scope="col">Skill Level</th>
+                        <th scope="col">Add a Session</th>
+                    </tr>
+                    @foreach (var lesson in Model)
+                    {
+                        <tr>
+                            <td scope="row">@lesson.LessonId</td>
+                            <td>@lesson.SkillLevel</td>
+                            <td><a asp-action="AddSession" asp-route-id="@lesson.LessonId">Add a session</a></td>
+                        </tr>
+                    }
+                </table>
+            }
+        }
+        <br />
+        <p><a asp-action="Index">Back to Coach Home</a></p>
+    </div>

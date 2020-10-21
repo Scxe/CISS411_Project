@@ -1,12 +1,18 @@
 ﻿@* SH 10-18 *@
 @model CISS411_Project.Models.Swimmer
-
-    <h2>Add Your Profile</h2>
-    <form asp-action="AddProfile">
-        <input asp-for="@Model.UserId" type="hidden" />
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <button type="submit">Add Profile</button>
-    </form>
-    <p><a asp-action="Index">Back to Swimmer Home</a></p>
+    <div>
+        <h2>Add Your Profile</h2>
+        <form asp-action="AddProfile">
+            <input asp-for="@Model.UserId" type="hidden" />
+            <table class="table">
+                <tr>
+                    <th>Name: </th>
+                    <td><input asp-for="Name" /></td>
+                </tr>
+            </table>
+            <button type="submit">Add Profile</button>
+        </form>
+        <br />
+        <p><a asp-action="Index">Back to Swimmer Home</a></p>
+    </div>
 
