@@ -3,16 +3,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Course Project</title>
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
 <body>
-    @if (this.User.Identity.IsAuthenticated)
-    {
-        <div>Hello, @this.User.Identity.Name</div>
-        <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Logout" />
-        </form>
-    }
-    @RenderBody()
+    <div class="container body-content">
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <div>Hello, @this.User.Identity.Name <a asp-controller="Account" asp-action="Logout">Logout</a></div>
+        
+
+        }
+        @RenderBody()
+    </div>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap.4.4.1/bootstrap.min.js"></script>
 </body>
 </html>

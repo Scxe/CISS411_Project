@@ -1,7 +1,19 @@
 ﻿@model List<CISS411_Project.Models.Enrollment>
 <h2>Enter Student Progress Reports</h2>
+@if (Model.Count() < 1)
+{
+    <p>No Swimmers Enrolled</p>
+}
+else
+{
 <h3>Session: @Model[0].Session.SessionId</h3>
 <form asp-controller="Coach" asp-action="PostReport" method="post">
+    @if (Model[0].EnrollmentId < 1)
+    {
+        <p>There are no Swimmers enrolled in this session</p>
+    }
+    else
+    {
     <table border="1">
         <tr>
             <th>Student ID</th>
@@ -10,9 +22,11 @@
             <th>Session</th>
             <th>Grade</th>
         </tr>
+
         @for (int i = 0; i < Model.Count(); i++)
         {
             <tr>
+             
                 <td><input asp-for="@Model[i].EnrollmentId" type="hidden" value="@Model[i].EnrollmentId" />@Model[i].SwimmerId</td>
                 <td>@Model[i].Swimmer.Name</td>
                 <td>@Model[i].Session.Lesson.SkillLevel</td>
@@ -26,4 +40,7 @@
         }
     </table>
     <input type="submit" value="Submit" />
+    }
 </form>
+}
+<p><a asp-action="SessionByCoach">Return to Progress Reports</a></p>

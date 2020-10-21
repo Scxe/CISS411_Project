@@ -26,6 +26,7 @@ namespace CISS411_Project.Controllers
             this.roleManager = roleManager;
             this.db = db;
         }
+        
         // Registration
         public IActionResult Register()
         {
@@ -57,6 +58,7 @@ namespace CISS411_Project.Controllers
         // Login
         public IActionResult Login()
         {
+     
             return View();
         }
         [HttpPost]
@@ -97,7 +99,6 @@ namespace CISS411_Project.Controllers
             var users = db.Users.ToList();
             return View(users);
         }
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
