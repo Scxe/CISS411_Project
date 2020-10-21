@@ -11,10 +11,9 @@
     <div class="container body-content">
         @if (this.User.Identity.IsAuthenticated)
         {
-            <div>Hello, @this.User.Identity.Name</div>
-            <form method="post" asp-controller="Account" asp-action="Logout">
-                <input type="submit" value="Logout" />
-            </form>
+            <div>Hello, @this.User.Identity.Name <a asp-controller="Account" asp-action="Logout">Logout</a></div>
+        
+
         }
         @RenderBody()
     </div>

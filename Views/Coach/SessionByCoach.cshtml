@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CISS411_Project.Models.Session>
+
 <h2>@Model.FirstOrDefault().Coach.Name</h2>
 @{ 
     if (Model.Count() < 1)
@@ -22,7 +23,14 @@
                     <td>@session.Lesson.SkillLevel</td>
                     <td>@session.SeatsAvailable</td>
                     <td>
-                        <a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a>
+                        @*@if (session.Enrollments.Equals(null))
+                        {
+                            <p>No Swimmers Enrolled in the Session</p>
+                        }
+                        else
+                        {*@
+                       <a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a>
+                        
                     </td>
                 </tr>
             }

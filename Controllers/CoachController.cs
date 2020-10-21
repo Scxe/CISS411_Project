@@ -92,6 +92,7 @@ namespace CISS411_Project.Controllers
                 return NotFound();
             }
             var allSwimmers = await db.Enrollments.Include(e => e.Session).Include(e => e.Swimmer).Include(e => e.Session.Lesson).Where(e => e.SessionId == id).ToListAsync();
+        
             if (allSwimmers == null)
             {
                 return NotFound();
@@ -101,6 +102,7 @@ namespace CISS411_Project.Controllers
         [HttpPost]
         public IActionResult PostReport(List<Enrollment> enrollments)
         {
+          
             foreach (var enrollment in enrollments)
             {
                 var er = db.Enrollments.Find(enrollment.EnrollmentId);
