@@ -11,8 +11,8 @@
     @if (this.User.Identity.IsAuthenticated)
     {
         <br />
-        <div class="d-flex justify-content-center">Hello, @this.User.Identity.Name </div>
-        <div class="d-flex justify-content-center"><a asp-controller="Account" asp-action="Logout">Logout</a></div>
+        <div class="d-flex justify-content-end pr-5">Hello, @this.User.Identity.Name </div>
+        <div class="d-flex justify-content-end pr-5"><a asp-controller="Account" asp-action="Logout">Logout</a></div>
         <br />
     }
     <div class="d-flex justify-content-center">
