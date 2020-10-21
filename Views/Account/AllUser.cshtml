@@ -1,27 +1,30 @@
 ﻿@* AT 10-14-20 *@
 @model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
-<p><a asp-action="Register">Add a user</a></p>
-<p><a asp-controller="Admin" asp-action="Index">Return to Home</a></p>
-@{
-    if (Model.Count() < 1)
-    {
-        <p>No user in database yet.</p>
-    }
-    else
-    {
-        <h3>All Users</h3>
-        <table border="1">
-            <tr>
-                <th>User Name</th>
-                <th>Add Role</th>
-            </tr>
-            @foreach (var user in Model)
-            {
+<div>
+    <p><a asp-action="Register">Add a user</a></p>
+    @{
+        if (Model.Count() < 1)
+        {
+            <p>No user in database yet.</p>
+        }
+        else
+        {
+            <h3>All Users</h3>
+            <table class="table">
                 <tr>
-                    <td>@user.UserName</td>
-                    <td><a asp-controller="Role" asp-action="AddUserRole" asp-route-id="@user.Id">Add a role</a></td>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Add Role</th>
                 </tr>
-            }
-        </table>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td scope="row">@user.UserName</td>
+                        <td><a asp-controller="Role" asp-action="AddUserRole" asp-route-id="@user.Id">Add a role</a></td>
+                    </tr>
+                }
+            </table>
+        }
     }
-}
+    <br />
+    <p><a asp-controller="Admin" asp-action="Index">Back to Admin Home</a></p>
+</div>

@@ -1,40 +1,33 @@
 ﻿@model IEnumerable<CISS411_Project.Models.Session>
-
-<h2>@Model.FirstOrDefault().Coach.Name</h2>
-@{ 
-    if (Model.Count() < 1)
-    {
-        <p>You don't have any sessions yet. <a asp-for="AddSession">Add a Session</a></p>
-    }
-    else
-    {
-        <h3>All Sessions</h3>
-        <table border="1">
-            <tr>
-                <th>Session ID</th>
-                <th>Skill Level</th>
-                <th>Seat Capacity</th>
-                <th>Post Report</th>
-            </tr>
-            @foreach (var session in Model)
+    <div>
+        <h2>@Model.FirstOrDefault().Coach.Name</h2>
+        @{
+            if (Model.Count() < 1)
             {
-                <tr>
-                    <td>@session.SessionId</td>
-                    <td>@session.Lesson.SkillLevel</td>
-                    <td>@session.SeatsAvailable</td>
-                    <td>
-                        @*@if (session.Enrollments.Equals(null))
-                        {
-                            <p>No Swimmers Enrolled in the Session</p>
-                        }
-                        else
-                        {*@
-                       <a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a>
-                        
-                    </td>
-                </tr>
+                <p>You don't have any sessions yet. <a asp-for="AddSession">Add a Session</a></p>
             }
-        </table>
-    }
-}
-<p><a asp-controller="Coach" asp-action="Index">Return to Coach Home</a></p>
+            else
+            {
+                <h3>All Sessions</h3>
+                <table class="table">
+                    <tr>
+                        <th scope="col">Session ID</th>
+                        <th scope="col">Skill Level</th>
+                        <th scope="col">Seat Capacity</th>
+                        <th scope="col">Post Report</th>
+                    </tr>
+                    @foreach (var session in Model)
+                    {
+                        <tr>
+                            <td scope="row">@session.SessionId</td>
+                            <td>@session.Lesson.SkillLevel</td>
+                            <td>@session.SeatsAvailable</td>
+                            <td><a asp-controller="Coach" asp-action="PostReport" asp-route-id="@session.SessionId">Post Report</a></td>
+                        </tr>
+                    }
+                </table>
+            }
+        }
+        <br />
+        <p><a asp-controller="Coach" asp-action="Index">Return to Coach Home</a></p>
+    </div>

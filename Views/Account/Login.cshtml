@@ -1,15 +1,21 @@
 ﻿@* AT 10-14-20 *@
 @model CISS411_Project.ViewModels.AccountLoginViewModel
-<h2>User Login</h2>
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="All"></div>
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+<div>
+    <h2>User Login</h2>
+    <form asp-action="Login" method="post">
+        <div asp-validation-summary="All"></div>
+        <table class="table">
+            <tr>
+                <th>Email: </th>
+                <td><input asp-for="Email" /><span asp-validation-for="Email"></span></td>
+            </tr>
+            <tr>
+                <th>Password: </th>
+                <td><input asp-for="Password" /><span asp-validation-for="Password"></span></td>
+            </tr>
+        </table>
+        <button type="submit">Log In</button>
+    </form>
     <br />
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
-    <br />
-    <button type="submit">Log In</button>
-</form>
+    <p><a asp-controller="Home" asp-action="Index">Back to Home</a></p>
+</div>

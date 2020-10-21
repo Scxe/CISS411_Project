@@ -1,46 +1,47 @@
 ﻿@model List<CISS411_Project.Models.Enrollment>
-<h2>Enter Student Progress Reports</h2>
-@if (Model.Count() < 1)
-{
-    <p>No Swimmers Enrolled</p>
-}
-else
-{
-<h3>Session: @Model[0].Session.SessionId</h3>
-<form asp-controller="Coach" asp-action="PostReport" method="post">
-    @if (Model[0].EnrollmentId < 1)
-    {
-        <p>There are no Swimmers enrolled in this session</p>
-    }
-    else
-    {
-    <table border="1">
-        <tr>
-            <th>Student ID</th>
-            <th>Student Name</th>
-            <th>Skill Level</th>
-            <th>Session</th>
-            <th>Grade</th>
-        </tr>
-
-        @for (int i = 0; i < Model.Count(); i++)
+    <div>
+        <h2>Enter Student Progress Reports</h2>
+        @if (Model.Count() < 1)
         {
-            <tr>
-             
-                <td><input asp-for="@Model[i].EnrollmentId" type="hidden" value="@Model[i].EnrollmentId" />@Model[i].SwimmerId</td>
-                <td>@Model[i].Swimmer.Name</td>
-                <td>@Model[i].Session.Lesson.SkillLevel</td>
-                <td>@Model[i].Session.StartDate</td>
-                <td><select asp-for="@Model[i].ProgressReport">
-                    <option value="E">E</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select></td>
-            </tr>
+            <p>No Swimmers Enrolled</p>
         }
-    </table>
-    <input type="submit" value="Submit" />
-    }
-</form>
-}
-<p><a asp-action="SessionByCoach">Return to Progress Reports</a></p>
+        else
+        {
+            <h3>Session: @Model[0].Session.SessionId</h3>
+            <form asp-controller="Coach" asp-action="PostReport" method="post">
+                <table class="table">
+                    <tr>
+                        <th scope="col">Student ID</th>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Skill Level</th>
+                        <th scope="col">Session</th>
+                        <th scope="col">Grade</th>
+                    </tr>
+
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <tr>
+
+                            <td scope="row">
+                                <input asp-for="@Model[i].EnrollmentId" type="hidden" value="@Model[i].EnrollmentId" />
+                                @Model[i].SwimmerId
+                            </td>
+                            <td>@Model[i].Swimmer.Name</td>
+                            <td>@Model[i].Session.Lesson.SkillLevel</td>
+                            <td>@Model[i].Session.StartDate</td>
+                            <td>
+                                <select asp-for="@Model[i].ProgressReport">
+                                    <option value="E">E</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <input type="submit" value="Submit" />
+            </form>
+        }
+        <br />
+        <p><a asp-action="SessionByCoach">Return to Progress Reports</a></p>
+    </div>

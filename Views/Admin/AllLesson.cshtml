@@ -1,28 +1,31 @@
 ﻿@*AT 10-15-20*@
 @model IEnumerable<CISS411_Project.Models.Lesson>
-
-@{ 
-    if (Model.Count() < 1)
-    {
-        <p>No lesson in database yet.</p>
-    }
-    else
-    {
-        <h3>All Lessons</h3>
-        <table border="1">
-            <tr>
-                <th>Lesson ID</th>
-                <th>Skill Level</th>
-                <th>Tuition Cost</th>
-            </tr>
-            @foreach (var lesson in Model)
-            {
+<div>
+    @{
+        if (Model.Count() < 1)
+        {
+            <p>No lesson in database yet.</p>
+        }
+        else
+        {
+            <h3>All Lessons</h3>
+            <table class="table">
                 <tr>
-                    <td>@lesson.LessonId</td>
-                    <td>@lesson.SkillLevel</td>
-                    <td>@lesson.Tuition</td>
+                    <th scope="col">Lesson ID</th>
+                    <th scope="col">Skill Level</th>
+                    <th scope="col">Tuition Cost</th>
                 </tr>
-            }
-        </table>
+                @foreach (var lesson in Model)
+                {
+                    <tr>
+                        <td scope="row">@lesson.LessonId</td>
+                        <td>@lesson.SkillLevel</td>
+                        <td>@lesson.Tuition</td>
+                    </tr>
+                }
+            </table>
+        }
     }
-}
+    <br />
+    <p><a asp-controller="Admin" asp-action="Index">Back to Admin Home</a></p>
+</div>
