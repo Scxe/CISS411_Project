@@ -1,6 +1,7 @@
 ﻿// SH 10-18-20
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
@@ -83,23 +84,44 @@ namespace CISS411_Project.Controllers
             var conflict = false;
             var dateString = "";
             DateTime starttime;
+            DateTime endtime;
             DateTime enrolltime;
-            TimeSpan difference;
+            var totalminutes = 0;
 
             foreach (var e in enrollments)
             {
                 dateString = e.Session.StartDate + " " + e.Session.StartTime;
                 if (DateTime.TryParse(dateString, out starttime)) { }
 
+                dateString = e.Session.EndDate + " " + e.Session.StartTime;
+                if (DateTime.TryParse(dateString, out endtime)) { }
+
                 dateString = session.StartDate + " " + session.StartTime;
                 if (DateTime.TryParse(dateString, out enrolltime)) { }
-
-                difference = starttime - enrolltime;
-
-                if (difference.Minutes >= -30 || difference.Minutes <= 30)
+                
+                foreach(DateTime day in Days(starttime, endtime))
                 {
-                    conflict = true;
+                    if (day.Date == enrolltime.Date)
+                    {
+                        totalminutes = (day.Hour * 60) + day.Minute;
+                        totalminutes -= (enrolltime.Hour * 60) + day.Minute;
+
+                        if (totalminutes <= 0)
+                        {
+                            if (totalminutes > -30)
+                            {
+                                conflict = true;
+                            }
+                        } else if (totalminutes > 0)
+                        {
+                            if (totalminutes < 30)
+                            {
+                                conflict = true;
+                            }
+                        }
+                    }
                 }
+                
             }
 
             if (conflict)
@@ -136,6 +158,10 @@ namespace CISS411_Project.Controllers
             ViewData["sname"] = swimmer.SwimmerId;
             return View(allSessions);
         }
-       
+        public IEnumerable<DateTime> Days(DateTime from, DateTime to)
+        {
+            for (var day = from; day.Date <= to.Date; day = day.AddDays(1))
+                yield return day;
+        }
     }
 }

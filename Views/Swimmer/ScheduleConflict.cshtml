@@ -1,7 +1,10 @@
 ﻿<div>
     <h2>We're Sorry</h2>
+    <br />
     <div class="alert alert-danger" role="alert">
         You are already enrolled in a session with this time slot
+        <br />
+        @ViewData["totalminutes"]
     </div>
     <br />
     <p><a asp-action="AllSession">Back to All Sessions</a></p>
