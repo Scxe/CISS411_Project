@@ -9,7 +9,7 @@ namespace CISS411_Project.Models
 {
     public enum ProgressReport
     {
-        E, A, B //Excees, Average, Below
+        E, A, B //Exceeds, Average, Below
     }
     public class Enrollment
     {
