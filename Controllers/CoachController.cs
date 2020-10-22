@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CISS411_Project.Models;
+using CISS411_Project.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +60,13 @@ namespace CISS411_Project.Controllers
         // All Lessons (for coach)
         public IActionResult AllLesson()
         {
-            return View(db.Lessons);
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var coach = db.Coaches.FirstOrDefault(s => s.UserId == currentUserId);
+            var lesson = db.Lessons.ToList();
+            CoachLessonViewModel vm = new CoachLessonViewModel();
+            vm.Coach = coach;
+            vm.Lessons = lesson;
+            return View(vm);
         }
         // Add a Session
         public IActionResult AddSession(int id)
