@@ -2,10 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CISS411_Project.Models;
+using CISS411_Project.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -62,8 +64,13 @@ namespace CISS411_Project.Controllers
         //AllCourse method
         public async Task<IActionResult> AllSession()
         {
-            var session = await db.Sessions.Include(c => c.Coach).ToListAsync();
-            return View(session);
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var swimmer = db.Swimmers.FirstOrDefault(s => s.UserId == currentUserId);
+            var session = await db.Sessions.Include(s => s.Coach).ToListAsync();
+            SessionSwimmerViewModel vm = new SessionSwimmerViewModel();
+            vm.Swimmer = swimmer;
+            vm.Sessions = session;
+            return View(vm);
         }
         //Enroll Session Action
         public async Task<IActionResult> EnrollSession(int id)
