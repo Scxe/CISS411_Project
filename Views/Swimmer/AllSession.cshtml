@@ -1,48 +1,58 @@
 ﻿@* SH 10/18 *@
-@model IEnumerable<CISS411_Project.Models.Session>
-    <div>
-        @{
-            if (Model.Count() < 1)
-            {
-                <p>No session in database yet.</p>
-            }
-            else
-            {
-                <h3>All Sessions</h3>
-                <table class="table">
+@*@model IEnumerable<CISS411_Project.Models.Session>*@
+@model CISS411_Project.ViewModels.SessionSwimmerViewModel
+
+<div>
+    @{
+        if (Model.Sessions.Count() < 1)
+        {
+            <p>No session in database yet.</p>
+        }
+        else
+        {
+            <h3>All Sessions</h3>
+            <table class="table">
+                <tr>
+                    <th scope="col">Session ID</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Seat Capacity</th>
+                    <th scope="col">Daily Start Time</th>
+                    <th scope="col">Enroll Session</th>
+                </tr>
+                @foreach (var session in Model.Sessions)
+                {
                     <tr>
-                        <th scope="col">Session ID</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Seat Capacity</th>
-                        <th scope="col">Daily Start Time</th>
-                        <th scope="col">Enroll Session</th>
-                    </tr>
-                    @foreach (var session in Model)
-                    {
-                        <tr>
-                            <td scope="row">@session.SessionId</td>
-                            <td>@session.StartDate</td>
-                            <td>@session.EndDate</td>
-                            <td>@session.SeatsAvailable</td>
-                            <td>@session.StartTime</td>
-                            <td>
-                                @{
-                                    if (session.SeatsAvailable < 1)
+                        <td scope="row">@session.SessionId</td>
+                        <td>@session.StartDate</td>
+                        <td>@session.EndDate</td>
+                        <td>@session.SeatsAvailable</td>
+                        <td>@session.StartTime</td>
+                        <td>@session.Enrollments</td>
+                        <td>
+                            @{
+                                if (session.SeatsAvailable < 1)
+                                {
+                                    <p>Full session</p>
+                                }
+                                else
+                                {
+                                    if (Model.Swimmer == null)
                                     {
-                                        <p>Full session</p>
+                                        <p><a asp-action="AddProfile">Add Profile</a></p>
                                     }
                                     else
                                     {
                                         <a asp-controller="Swimmer" asp-action="EnrollSession" asp-route-id="@session.SessionId">Register</a>
                                     }
                                 }
-                            </td>
-                        </tr>
-                    }
-                </table>
-            }
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
         }
-        <br />
-        <p><a asp-action="Index">Back to swimmer home</a></p>
-    </div>
+    }
+    <br />
+    <p><a asp-action="Index">Back to swimmer home</a></p>
+</div>
