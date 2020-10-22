@@ -1,7 +1,7 @@
 ﻿// SH 10-18-20
-
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json.Converters;
 
 namespace CISS411_Project.Controllers
 {
@@ -77,13 +79,63 @@ namespace CISS411_Project.Controllers
         {
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var swimmerId = db.Swimmers.FirstOrDefault(s => s.UserId == currentUserId).SwimmerId;
+            var enrollments = db.Enrollments.Include(e => e.Session).Where(e => e.SwimmerId == swimmerId);
+            var session = await db.Sessions.FindAsync(id); // db.Sessions.FirstOrDefault(s => s.SessionId == id);
+            var conflict = false;
+            var dateString = "";
+            DateTime starttime;
+            DateTime endtime;
+            DateTime enrolltime;
+            var totalminutes = 0;
+
+            foreach (var e in enrollments)
+            {
+                dateString = e.Session.StartDate + " " + e.Session.StartTime;
+                if (DateTime.TryParse(dateString, out starttime)) { }
+
+                dateString = e.Session.EndDate + " " + e.Session.StartTime;
+                if (DateTime.TryParse(dateString, out endtime)) { }
+
+                dateString = session.StartDate + " " + session.StartTime;
+                if (DateTime.TryParse(dateString, out enrolltime)) { }
+                
+                foreach(DateTime day in Days(starttime, endtime))
+                {
+                    if (day.Date == enrolltime.Date)
+                    {
+                        totalminutes = (day.Hour * 60) + day.Minute;
+                        totalminutes -= (enrolltime.Hour * 60) + day.Minute;
+
+                        if (totalminutes <= 0)
+                        {
+                            if (totalminutes > -30)
+                            {
+                                conflict = true;
+                            }
+                        } else if (totalminutes > 0)
+                        {
+                            if (totalminutes < 30)
+                            {
+                                conflict = true;
+                            }
+                        }
+                    }
+                }
+                
+            }
+
+            if (conflict)
+            {
+                return View("ScheduleConflict");
+            }
+            
+
             Enrollment enrollment = new Enrollment
             {
                 SessionId = id,
                 SwimmerId = swimmerId
             };
             db.Add(enrollment);
-            var session = await db.Sessions.FindAsync(enrollment.SessionId);
             session.SeatsAvailable--;
             await db.SaveChangesAsync();
             return View("Index");
@@ -106,6 +158,10 @@ namespace CISS411_Project.Controllers
             ViewData["sname"] = swimmer.Name;
             return View(allSessions);
         }
-       
+        public IEnumerable<DateTime> Days(DateTime from, DateTime to)
+        {
+            for (var day = from; day.Date <= to.Date; day = day.AddDays(1))
+                yield return day;
+        }
     }
 }
