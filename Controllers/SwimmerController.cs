@@ -103,7 +103,7 @@ namespace CISS411_Project.Controllers
             {
                 return NotFound();
             }
-            ViewData["sname"] = swimmer.SwimmerId;
+            ViewData["sname"] = swimmer.Name;
             return View(allSessions);
         }
        
