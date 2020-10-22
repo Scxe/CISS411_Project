@@ -1,8 +1,8 @@
 ﻿@*AT 10-17-20*@
-@model IEnumerable<CISS411_Project.Models.Lesson>
+@model CISS411_Project.ViewModels.CoachLessonViewModel
     <div>
         @{
-            if (Model.Count() < 1)
+            if (Model.Lessons == null)
             {
                 <p>No lesson in database yet.</p>
             }
@@ -15,13 +15,22 @@
                         <th scope="col">Skill Level</th>
                         <th scope="col">Add a Session</th>
                     </tr>
-                    @foreach (var lesson in Model)
+                    @foreach (var lesson in Model.Lessons)
                     {
-                        <tr>
-                            <td scope="row">@lesson.LessonId</td>
-                            <td>@lesson.SkillLevel</td>
-                            <td><a asp-action="AddSession" asp-route-id="@lesson.LessonId">Add a session</a></td>
-                        </tr>
+                <tr>
+                    <td scope="row">@lesson.LessonId</td>
+                    <td>@lesson.SkillLevel</td>
+                    <td>
+                        @if (Model.Coach == null)
+                        {
+                            <a asp-controller="Coach" asp-action="AddProfile">Add Profile</a>
+                        }
+                        else
+                        {
+                            <a asp-action="AddSession" asp-route-id="@lesson.LessonId">Add Profile to Add Sessions</a>
+                        }
+                    </td>
+                </tr>
                     }
                 </table>
             }
