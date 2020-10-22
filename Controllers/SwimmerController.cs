@@ -1,5 +1,4 @@
 ﻿// SH 10-18-20
-
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -12,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json.Converters;
 
 namespace CISS411_Project.Controllers
 {
@@ -77,13 +78,42 @@ namespace CISS411_Project.Controllers
         {
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var swimmerId = db.Swimmers.FirstOrDefault(s => s.UserId == currentUserId).SwimmerId;
+            var enrollments = db.Enrollments.Include(e => e.Session).Where(e => e.SwimmerId == swimmerId);
+            var session = await db.Sessions.FindAsync(id); // db.Sessions.FirstOrDefault(s => s.SessionId == id);
+            var conflict = false;
+            var dateString = "";
+            DateTime starttime;
+            DateTime enrolltime;
+            TimeSpan difference;
+
+            foreach (var e in enrollments)
+            {
+                dateString = e.Session.StartDate + " " + e.Session.StartTime;
+                if (DateTime.TryParse(dateString, out starttime)) { }
+
+                dateString = session.StartDate + " " + session.StartTime;
+                if (DateTime.TryParse(dateString, out enrolltime)) { }
+
+                difference = starttime - enrolltime;
+
+                if (difference.Minutes >= -30 || difference.Minutes <= 30)
+                {
+                    conflict = true;
+                }
+            }
+
+            if (conflict)
+            {
+                return View("ScheduleConflict");
+            }
+            
+
             Enrollment enrollment = new Enrollment
             {
                 SessionId = id,
                 SwimmerId = swimmerId
             };
             db.Add(enrollment);
-            var session = await db.Sessions.FindAsync(enrollment.SessionId);
             session.SeatsAvailable--;
             await db.SaveChangesAsync();
             return View("Index");
