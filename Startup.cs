@@ -3,7 +3,8 @@ Nicholas Henson, Asa Thompson, Luke Parker, Shaun Hembree
 CISS 411
 Software Architecture and Testing
 Course Project
-9/28/2020
+Started: 9/28/2020
+Completed: 110/23/2020
 */
 
 using System;
@@ -49,7 +50,7 @@ namespace CISS411_Project
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}" // AT- May still need to update default pathway
+                    pattern: "{controller=Home}/{action=Index}/{id?}" // default pathway
                     );
             });
         }
